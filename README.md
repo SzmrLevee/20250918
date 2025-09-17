@@ -10,11 +10,9 @@
 
 1. [Rekordkiegészítés](#1-rekordkiegészítés)
    - Külön kódrészletek
-   - Egyben
    - Magyarázat és megjegyzések
 2. [Generikusság](#2-generikusság)
    - Külön kódrészletek
-   - Egyben
    - Magyarázat és megjegyzések
 3. [Következő témák (hamarosan)](#3-következő-témák-hamarosan)
 
