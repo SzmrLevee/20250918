@@ -40,7 +40,7 @@ internal record TestRecord(string nev, int eletkor, int fizetes, string beosztas
 
 ### Magyarázat és megjegyzések
 
-**Az Ön leírása:**  
+**A jegyzetem:**  
 > Rekord Kiegészítés  
 > Hasznos, ha csak egy egy elemét szeretnék változtatnia a rekordnak. Innentől ha véletlenül megváltozik az adatsor - 1,2 mező, akkor nincsen kihatással a mi működésünkre, hiszen csak azokat változtatjuk, amelyiket mi akarjuk.
 
@@ -125,7 +125,7 @@ internal class SajatLista<ElemTipus> where ElemTipus : IComparable<ElemTipus>, n
 
 ### Magyarázat és megjegyzések
 
-**Az Ön leírása:**  
+**A jegyzetem::**  
 > Generikussag - egy valaminek - pls: egy osztálynak, egy függvénynek, egy intervallumnak egy típusparamétert kell adni  
 >
 > Mit kell érteni - ha szeretnénk csinálni egy listát - bármilyen elemek  
