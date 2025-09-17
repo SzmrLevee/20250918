@@ -1,38 +1,29 @@
-# C# Oktatóanyag – Rekordkiegészítés és Generikusság
-
-> Ez a dokumentum egy **folyamatosan bővülő** anyag, amely C# nyelvi elemeket mutat be gyakorlati példákkal.  
-> Jelenleg két fő fejezet található benne: **rekordkiegészítés** és **generikusság**.  
-> Később további **négy fejezet** érkezik ehhez a tananyaghoz.
-
----
+# C# Oktatóanyag
 
 ## Tartalomjegyzék
 
 1. [Rekordkiegészítés](#1-rekordkiegészítés)
-   - Külön kódrészletek
-   - Magyarázat és megjegyzések
 2. [Generikusság](#2-generikusság)
-   - Külön kódrészletek
-   - Magyarázat és megjegyzések
 3. [Következő témák (hamarosan)](#3-következő-témák-hamarosan)
 
 ---
 
 ## 1. Rekordkiegészítés
 
-### Külön kódrészletek
+### Kódrészletek
 
 ```csharp
 // Példányok létrehozása és módosítása
 TestRecord peldany1 = new TestRecord("Tigris", 3, 12, "Vadász");
+// A 'with' kulcsszóval új rekordpéldányt hozunk létre, ahol csak a megadott mezőket módosítjuk
 TestRecord peldany2 = peldany1 with { nev = "Kiscica", beosztas = "Fogyasztó" };
 
-Console.WriteLine(peldany1);
-Console.WriteLine(peldany2);
+Console.WriteLine(peldany1); // Kiírja az eredeti rekordot
+Console.WriteLine(peldany2); // Kiírja a módosított rekordot
 ```
 
 ```csharp
-// Rekord definíció
+// Rekord definíció – a mezők automatikusan init-only tulajdonságok lesznek
 internal record TestRecord(string nev, int eletkor, int fizetes, string beosztas)
 {
 }
@@ -53,21 +44,23 @@ internal record TestRecord(string nev, int eletkor, int fizetes, string beosztas
 
 ## 2. Generikusság
 
-### Külön kódrészletek
+### Kódrészletek
 
 ```csharp
 // Generikus osztály használata
-SajatLista<int> ertekek = new SajatLista<int>(10);
+SajatLista<int> ertekek = new SajatLista<int>(10); // maximum 10 elemű lista
 for (int i = 0; i < 5; i++)
 {
+    // Beszúrás csökkenő sorrendben: 42, 40, 38, 36, 34
     ertekek.HozzaAd(42 - i * 2);
 }
 
+// Generikus metódus hívása: típusparamétert explicit adjuk meg
 ertekek.MitTudomEnMi<object>("Kiscica");
 
 for (int i = 0; i < ertekek.ElemekSzama; ++i)
 {
-    Console.WriteLine(ertekek.Elem(i));
+    Console.WriteLine(ertekek.Elem(i)); // Rendezés miatt növekvő sorrendben írja ki
 }
 ```
 
@@ -86,6 +79,7 @@ internal class SajatLista<ElemTipus> where ElemTipus : IComparable<ElemTipus>, n
         comparer = new MyComparer();
     }
 
+    // Belső comparer osztály, amely null ellenőrzést is végez
     class MyComparer : IComparer<ElemTipus>
     {
         public int Compare(ElemTipus? x, ElemTipus? y)
@@ -96,11 +90,13 @@ internal class SajatLista<ElemTipus> where ElemTipus : IComparable<ElemTipus>, n
         }
     }
 
+    // Generikus metódus: bármilyen típusú értéket elfogad
     public void MitTudomEnMi<MasikTipus>(MasikTipus ertek)
     {
         Console.WriteLine($"{ertek}: {elemszam}");
     }
 
+    // Elem hozzáadása + automatikus rendezés
     public void HozzaAd(ElemTipus ertek)
     {
         if (elemszam >= ertekek.Length)
@@ -111,6 +107,7 @@ internal class SajatLista<ElemTipus> where ElemTipus : IComparable<ElemTipus>, n
         Array.Sort(ertekek, 0, elemszam, comparer);
     }
 
+    // Index alapján visszaadja az elemet, határellenőrzéssel
     public ElemTipus Elem(int pozicio)
     {
         if (pozicio < 0 || pozicio > elemszam)
@@ -125,7 +122,7 @@ internal class SajatLista<ElemTipus> where ElemTipus : IComparable<ElemTipus>, n
 
 ### Magyarázat és megjegyzések
 
-**A jegyzetem::**  
+**A jegyzetem:**  
 > Generikussag - egy valaminek - pls: egy osztálynak, egy függvénynek, egy intervallumnak egy típusparamétert kell adni  
 >
 > Mit kell érteni - ha szeretnénk csinálni egy listát - bármilyen elemek  
@@ -165,14 +162,12 @@ internal class SajatLista<ElemTipus> where ElemTipus : IComparable<ElemTipus>, n
 - A `where ElemTipus : IComparable<ElemTipus>` megszorítás lehetővé teszi a **rendezést**.  
 - A `new()` megszorítás paraméter nélküli konstruktor meglétét követeli.  
 - A `MitTudomEnMi` bemutatja a **generikus metódus** szintaxist, amely különböző típusokkal hívható meg.  
-- A példakód futtatás után rendezett listát ad: `34, 36, 38, 40, 42`.
+- A példakód futtatás után rendezett listát ad: `34, 36, 38, 40, 42`.  
+- A belső `MyComparer` gondoskodik arról, hogy a `null` értékek is kezelve legyenek.
 
 ---
 
 ## 3. Következő témák (hamarosan)
-
-Ez a dokumentum később további **négy új fejezettel** fog bővülni.  
-A tervezett sorrend és tartalom itt lesz majd felsorolva.
 
 ---
 
