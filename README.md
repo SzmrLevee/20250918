@@ -4,7 +4,8 @@
 
 1. [Rekordkiegészítés](#1-rekordkiegészítés)
 2. [Generikusság](#2-generikusság)
-3. [Következő témák (hamarosan)](#3-következő-témák-hamarosan)
+3. [Delegate és Event](#3-delegate-és-event)
+4. [Következő témák (hamarosan)](#3-következő-témák-hamarosan)
 
 ---
 
